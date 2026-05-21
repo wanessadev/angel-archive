@@ -1,12 +1,12 @@
 # 🌌✨ Angel Archive — Meu Cantinho Cósmico de Mídias 🌟🌙
 
 <p align="center">
-  <img src="https://api.iconify.design/pixelarticons:star.svg" width="50" height="50" alt="Estrela Mágica">
+  <img src="https://64.media.tumblr.com/e2311217287e981d94960a9373ff2e8f/6c4e04c0a07fb808-fb/s1280x1920/2ce70205f49b5ff2d90462a0569b2927b09a73a0.gif" width="300" alt="Angel Archive Logo Cósmica">
 </p>
 
 <p align="center">
   <b>Bem-vinda à nossa constelação de histórias! 💫</b><br>
-  O <b>Angel Archive</b> (nascido do projeto <i>AngelNessa</i> e anteriormente chamado de <i>Celestial Vault</i>) é um grimório digital, imersivo e super fofo feito para guardar e catalogar todas as minhas mídias favoritas: joguinhos mágicos, livros, animes/séries e filmes! 🎬🔮🎮
+  O <b>Angel Archive</b> é um grimório digital e imersivo feito para guardar e catalogar todas as minhas mídias favoritas: joguinhos mágicos, livros, animes/séries e filmes! 🎬🔮🎮
 </p>
 
 <p align="center">
