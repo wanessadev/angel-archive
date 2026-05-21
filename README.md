@@ -38,7 +38,7 @@ Para dar vida a esse universo, usamos as melhores poções de desenvolvimento we
 * **🟢 Supabase & PostgreSQL (Nuvem):** A nossa grande evolução! Agora os dados não ficam presos no navegador. Eles viajam na velocidade da luz até um banco de dados real na nuvem, salvando tudo de forma eterna.
 
 <p align="center">
-<img src="https://64.media.tumblr.com/5d1ac86900a33c913bbc4cee690e8ef4/5b687adaf1b0cff0-8d/s1280x1920/d4fed46f2df12a4cc4b410fae79696ccba453cc1.gifv"/></p>
+  <img src="https://64.media.tumblr.com/a58f665d8eba47424226ac8089c65e67/6c4e04c0a07fb808-c0/s1280x1920/5dea38bdf143270f51132f48a4e894479bdc2670.gifv"/></p>
 ---
 
 ## 📊 ☄️ O Mapa das Constelações (Estrutura do Banco de Dados)
@@ -64,4 +64,6 @@ Nossa tabela `medias` no Supabase organiza as obras de forma mágica em linhas e
 <p align="center">
   <img src="https://64.media.tumblr.com/1221779b5c816ac5a35b2cc1a1731e63/d4801889be427764-0f/s250x400/15a9ff5b2531f20c2f0b0f6f0580248e293dbc46.gifv" /></p>
 
-
+<p align="center">
+  𐙚 ‧₊˚ ⋅<b><a href="https://seu-usuario.github.io/nome-do-repositorio/">Visitar o Acervo no Espaço (Live Demo)</a></b> 🛸
+</p>
