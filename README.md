@@ -6,7 +6,7 @@
 
 <p align="center">
   <b>Bem-vinda à nossa constelação de histórias! 💫</b><br>
-  O <b>Angel Archive</b> é um grimório digital e imersivo feito para guardar e catalogar todas as minhas mídias favoritas: joguinhos mágicos, livros, animes/séries e filmes! 🎬🔮🎮
+  O <b>Angel Archive</b> é um grimório digital e imersivo feito para guardar e catalogar todas as minhas mídias favoritas: games, livros, animes/séries e filmes! 🎬🔮🎮
 </p>
 
 <p align="center">
@@ -17,9 +17,12 @@
 
 ## 🔮✨ Magias do Nosso Sistema (Funcionalidades)
 
-* **🛸 Catalogação nas Estrelas:** Adicione novas entradas no acervo com título, gênero, uma fotinha de capa linda, tipo de mídia e as minhas impressões pessoais.
-* **🪐 Navegação por Galáxias:** Uma sidebar mágica para filtrar o feed e navegar pelas suas categorias favoritas: *Galáxia* (tudo junto!), *Jogos* (minhas odisseias), *Grimórios* (meus livrinhos), *Séries* ou *Filmes*.
-* **⭐ Avaliação Estelar:** Um sistema super fofo de dar estrelinhas brilhantes ($\u10022$) para as obras, com direito a efeito de hover e suporte por teclado!
+<p align="center">
+  <img src="https://64.media.tumblr.com/09198499ef5832ff498cbc38461db918/987fa21705ff793d-5d/s250x400/50cfb2b51f283ec79630bb81bb149e88c4c8d059.webp" /></p>
+
+* **🛸 Catalogação:** Adicione novas entradas no acervo com título, gênero, uma fotinha de capa linda, tipo de mídia e as minhas impressões pessoais.
+* **🪐 Navegação:** Uma sidebar mágica para filtrar o feed e navegar pelas suas categorias favoritas: *Galáxia* (tudo junto!), *Jogos*, *Livros*, *Séries* ou *Filmes*.
+* **⭐ Avaliação Estelar:** Um sistema de dar estrelinhas brilhantes ($\u10022$) para as obras, com direito a efeito de hover e suporte por teclado!
 * **🌌 Aurora e Nebulosas Vivas:** Um fundo cósmico animado em CSS com camadas de nebulosas flutuantes, aurora boreal ondulante e estrelas que piscam de verdade enquanto você navega.
 * **📂 Janela Estilo Notebook Retro/Y2K:** Uma interface com bordinhas arredondadas, efeito *Glassmorphism* (translúcido) e controles de janela coloridos que dão um toque super nostálgico e fofo.
 
