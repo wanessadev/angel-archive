@@ -9,7 +9,7 @@
   O <b>Angel Archive</b> é um grimório digital e imersivo feito para guardar e catalogar todas as minhas mídias favoritas: joguinhos mágicos, livros, animes/séries e filmes! 🎬🔮🎮
 </p>
 
-<img src="https://img.shields.io/badge/Status-Em%20Desenvolvimento-11CAA0?style=for-the-badge&logoColor=white" />
+<img src="https://img.shields.io/badge/Status-Em%20Desenvolvimento-BC84EE?style=for-the-badge&logoColor=white" />
 
 ---
 
