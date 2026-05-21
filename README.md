@@ -9,9 +9,7 @@
   O <b>Angel Archive</b> é um grimório digital e imersivo feito para guardar e catalogar todas as minhas mídias favoritas: joguinhos mágicos, livros, animes/séries e filmes! 🎬🔮🎮
 </p>
 
-<p align="center">
-  <i>Um cantinho no universo criado por mim (Nessa) com uma ajudinha estelar da minha IA favorita (Gemini)! 🪐🤖💖</i>
-</p>
+<img src="https://img.shields.io/badge/Status-Em%20Desenvolvimento-11CAA0?style=for-the-badge&logoColor=white" />
 
 ---
 
