@@ -22,7 +22,7 @@
 
 * **🛸 Catalogação:** Adicione novas entradas no acervo com título, gênero, uma fotinha de capa linda, tipo de mídia e as minhas impressões pessoais.
 * **🪐 Navegação:** Uma sidebar mágica para filtrar o feed e navegar pelas suas categorias favoritas: *Galáxia* (tudo junto!), *Jogos*, *Livros*, *Séries* ou *Filmes*.
-* **⭐ Avaliação Estelar:** Um sistema de dar estrelinhas brilhantes ($\u10022$) para as obras, com direito a efeito de hover e suporte por teclado!
+* **⭐ Avaliação Estelar:** Um sistema de dar estrelinhas brilhantes para as obras, com direito a efeito de hover e suporte por teclado!
 * **🌌 Aurora e Nebulosas Vivas:** Um fundo cósmico animado em CSS com camadas de nebulosas flutuantes, aurora boreal ondulante e estrelas que piscam de verdade enquanto você navega.
 * **📂 Janela Estilo Notebook Retro/Y2K:** Uma interface com bordinhas arredondadas, efeito *Glassmorphism* (translúcido) e controles de janela coloridos que dão um toque super nostálgico e fofo.
 
@@ -37,6 +37,8 @@ Para dar vida a esse universo, usamos as melhores poções de desenvolvimento we
 * **✨ JavaScript Puro (ES6+):** O coração do site, cuidando de toda a lógica dos modais, renderização dos cards na tela e interações.
 * **🟢 Supabase & PostgreSQL (Nuvem):** A nossa grande evolução! Agora os dados não ficam presos no navegador. Eles viajam na velocidade da luz até um banco de dados real na nuvem, salvando tudo de forma eterna.
 
+<p align="center">
+<img src="https://64.media.tumblr.com/5d1ac86900a33c913bbc4cee690e8ef4/5b687adaf1b0cff0-8d/s1280x1920/d4fed46f2df12a4cc4b410fae79696ccba453cc1.gifv"/></p>
 ---
 
 ## 📊 ☄️ O Mapa das Constelações (Estrutura do Banco de Dados)
@@ -59,4 +61,7 @@ Nossa tabela `medias` no Supabase organiza as obras de forma mágica em linhas e
 
 ## 🚀 🛸 Como Viajar por Esse Universo Localmente
 
-1. Abra o seu terminal espacial e clone o repositório:
+<p align="center">
+  <img src="https://64.media.tumblr.com/1221779b5c816ac5a35b2cc1a1731e63/d4801889be427764-0f/s250x400/15a9ff5b2531f20c2f0b0f6f0580248e293dbc46.gifv" /></p>
+
+
