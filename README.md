@@ -1,4 +1,4 @@
-# 🌌✨ Angel Archive — Meu Cantinho Cósmico de Mídias 🌟🌙
+# 🌌✨ Angel Archive — ⊹˚. ♡.𖥔 ݁ ˖ 🌟🌙
 
 <p align="center">
   <img src="https://64.media.tumblr.com/e2311217287e981d94960a9373ff2e8f/6c4e04c0a07fb808-fb/s1280x1920/2ce70205f49b5ff2d90462a0569b2927b09a73a0.gif" width="300" alt="Angel Archive Logo Cósmica">
@@ -65,5 +65,5 @@ Nossa tabela `medias` no Supabase organiza as obras de forma mágica em linhas e
   <img src="https://64.media.tumblr.com/1221779b5c816ac5a35b2cc1a1731e63/d4801889be427764-0f/s250x400/15a9ff5b2531f20c2f0b0f6f0580248e293dbc46.gifv" /></p>
 
 <p align="center">
-  𐙚 ‧₊˚ ⋅<b><a href="https://seu-usuario.github.io/nome-do-repositorio/">Visitar o Acervo no Espaço (Live Demo)</a></b> ദ്ദി(˵ •̀ ᴗ - ˵ )✧🛸
+  𐙚 ‧₊˚ ⋅<b><a href="https://wanessadev.io/angel-archive/">Visitar o Acervo no Espaço (Live Demo)</a></b> ദ്ദി(˵ •̀ ᴗ - ˵ )✧🛸
 </p>
