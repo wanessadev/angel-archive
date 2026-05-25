@@ -2,7 +2,7 @@
 //  SUPABASE CONFIGURAÇÃO
 // ============================================
 const SUPABASE_URL = 'https://niaritlethlmrrpspwow.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_lPmzjwPVaE9U08Jn8SSf4Q_GzTvKUiA';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5pYXJpdGxldGhsbXJycHNwd293Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMTA4NTIsImV4cCI6MjA5NDY4Njg1Mn0.CTQZNUmjQOSJqc2dv0SnKiZ94tfOdQAqX0flBiKIY0w';
 
 let supabaseClient = null;
 let supabaseAvailable = false;
