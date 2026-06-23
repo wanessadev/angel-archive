@@ -33,9 +33,9 @@
                 <div class="dot green"></div>
             </div>
             <div class="title-text">
-                <span aria-hidden="true">&#10022;</span>
+                <span aria-hidden="true">&#9733;</span>
                 <span class="brand">WELCOME TO ANGEL-NESSA ARCHIVE</span>
-                <span aria-hidden="true">&#10022;</span>
+                <span aria-hidden="true">&#9733;</span>
             </div>
             <div class="global-stats">
                 <span id="stat-total">0 obras</span>
@@ -50,7 +50,7 @@
                 <p class="section-title">Navegar</p>
                 <nav class="nav-menu">
                     <button class="nav-btn active" data-nav="galaxia" aria-pressed="true" role="tab">
-                        <span class="icon" aria-hidden="true">&#10022;</span>
+                        <span class="icon" aria-hidden="true">&#9733;</span>
                         <div class="nav-text">
                             <span class="label">Galáxia</span>
                             <span class="count" id="count-galaxia">0 itens</span>
@@ -75,6 +75,13 @@
                         <div class="nav-text">
                             <span class="label">Séries</span>
                             <span class="count" id="count-visao">0 itens</span>
+                        </div>
+                    </button>
+                    <button class="nav-btn" data-nav="anime" aria-pressed="false" role="tab">
+                        <span class="icon" aria-hidden="true">&#10022;</span>
+                        <div class="nav-text">
+                            <span class="label">Animes</span>
+                            <span class="count" id="count-anime">0 itens</span>
                         </div>
                     </button>
                     <button class="nav-btn" data-nav="cinema" aria-pressed="false" role="tab">
@@ -103,7 +110,7 @@
             <main class="content-area">
                 <div class="content-header">
                     <div>
-                        <h1 id="page-title">&#10022; Galáxia</h1>
+                        <h1 id="page-title">&#9733; Galáxia</h1>
                         <p id="page-subtitle" class="subtitle">Carregando acervo...</p>
                     </div>
                     <button class="add-btn" id="open-add-modal" aria-label="Adicionar nova obra">
@@ -147,7 +154,8 @@
                     <div class="type-selector-buttons" role="radiogroup" aria-label="Selecionar tipo de mídia">
                         <button class="type-btn active" data-type="odisseia" role="radio" aria-checked="true">Jogo</button>
                         <button class="type-btn" data-type="grimorio" role="radio" aria-checked="false">Livro</button>
-                        <button class="type-btn" data-type="visao" role="radio" aria-checked="false">Anime</button>
+                        <button class="type-btn" data-type="visao" role="radio" aria-checked="false">Série</button>
+                        <button class="type-btn" data-type="anime" role="radio" aria-checked="false">Anime</button>
                         <button class="type-btn" data-type="cinema" role="radio" aria-checked="false">Filme</button>
                     </div>
                 </div>
@@ -181,7 +189,7 @@
         <div class="modal-card border-purple">
             <div class="modal-header">
                 <div>
-                    <p class="modal-tag purple-text">&#10022; Editar Registro</p>
+                    <p class="modal-tag purple-text">&#9733; Editar Registro</p>
                     <h2 id="edit-modal-title">Título da Obra</h2>
                 </div>
                 <button class="close-icon close-modal-btn" aria-label="Fechar modal">&#10005;</button>
@@ -204,7 +212,7 @@
                 <button class="btn-danger" id="delete-btn">Remover</button>
                 <div class="footer-right">
                     <button class="btn-secondary close-modal-btn">Cancelar</button>
-                    <button class="btn-primary bg-purple" id="save-edit-btn">&#10022; Salvar</button>
+                    <button class="btn-primary bg-purple" id="save-edit-btn">&#9733; Salvar</button>
                 </div>
             </div>
         </div>
