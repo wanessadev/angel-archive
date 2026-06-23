@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Verificar autenticação
     const session = localStorage.getItem('angelnessa_session') || sessionStorage.getItem('angelnessa_session');
     if (!session) {
-        window.location.replace('login.html');
+        window.location.href = 'login.html?from=logout';
         return;
     }
     try {
@@ -203,11 +203,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (!data.loggedIn || (Date.now() - data.timestamp) > 7 * 24 * 60 * 60 * 1000) {
             localStorage.removeItem('angelnessa_session');
             sessionStorage.removeItem('angelnessa_session');
-            window.location.replace('login.html');
+            window.location.href = 'login.html?from=logout';
             return;
         }
     } catch(e) {
-        window.location.replace('login.html');
+        window.location.href = 'login.html?from=logout';
         return;
     }
 
