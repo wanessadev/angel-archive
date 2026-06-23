@@ -2,18 +2,16 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#F2EBE4">
     <title>Angel-Nessa Archive</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImcxIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojQkM4NEVFIi8+PHN0b3Agb2Zmc2V0PSI1MCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxMUNBMDAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNGRkQ1QkQiLz48L2xpbmVhckdyYWRpZW50PjxmaWx0ZXIgaWQ9Imdsb3ciPjxmZUdhdXNzaWFuQmx1ciBzdGREZXZpYXRpb249IjMiIHJlc3VsdD0iY29sb3JlZEJsdXIiLz48ZmVNZXJnZT48ZmVNZXJnZU5vZGUgaW49ImNvbG9yZWRCbHVyIi8+PGZlTWVyZ2VOb2RlIGluPSJTb3VyY2VHcmFwaGljIi8+PC9mZU1lcmdlPjwvZmlsdGVyPjwvZGVmcz48cGF0aCBkPSJNNTAgNSBMNjAgNDAgTDk1IDUwIEw2MCA2MCBMNTAgOTUgTDQwIDYwIEw1IDUwIEw0MCA0MCBaIiBmaWxsPSJ1cmwoI2cxKSIgZmlsdGVyPSJ1cmwoI2dsb3cpIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4zKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iOCIgZmlsbD0id2hpdGUiIG9wYWNpdHk9IjAuOSIvPjwvc3ZnPg==">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImcxIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojRDRCMzczIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojRTBDNEEyIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNDAiIGZpbGw9InVybCgjZzEpIi8+PHN2ZyB4PSIzMCIgeT0iMzAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgM2MxLjY2IDAgMyAxLjM0IDMgM3MtMS4zNCAzLTMgMy0zLTEuMzQtMy0zIDEuMzQtMyAzLTN6bTAgMTQuMmMtMi41IDAtNC43MS0xLjI4LTYtMy4yMi4wMy0xLjk5IDQtMy4wOCA2LTMuMDggMS45OSAwIDUuOTcgMS4wOSA2IDMuMDgtMS4yOSAxLjk0LTMuNSAzLjIyLTYgMy4yMnoiLz48L3N2Zz48L3N2Zz4=">
     <link rel="stylesheet" href="style.css">
-    <!-- Supabase JS Client local (você já tem esse arquivo) -->
-    <script src="supabase-js.js"></script>
-<base target="_blank">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <base target="_blank">
 </head>
 <body>
-
-    <!-- Background Cósmico Animado -->
+    <!-- Background Cozy -->
     <div class="cosmic-bg" aria-hidden="true">
         <div class="nebula-layer nebula-1"></div>
         <div class="nebula-layer nebula-2"></div>
@@ -27,7 +25,7 @@
     </div>
 
     <div class="vault-window">
-
+        <!-- Barra de Título -->
         <div class="title-bar">
             <div class="window-controls" aria-label="Controles da janela">
                 <div class="dot red"></div>
@@ -45,8 +43,9 @@
             </div>
         </div>
 
+        <!-- Corpo -->
         <div class="window-body">
-
+            <!-- Sidebar -->
             <aside class="sidebar" role="navigation" aria-label="Navegação principal">
                 <p class="section-title">Navegar</p>
                 <nav class="nav-menu">
@@ -79,7 +78,14 @@
                         </div>
                     </button>
                     <button class="nav-btn" data-nav="cinema" aria-pressed="false" role="tab">
-                        <span class="icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><path d="M7 2v20"/><path d="M17 2v20"/><path d="M2 12h20"/><path d="M2 7h5"/><path d="M2 17h5"/><path d="M17 17h5"/><path d="M17 7h5"/></svg></span>
+                        <span class="icon" aria-hidden="true">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block">
+                                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
+                                <path d="M7 2v20"/><path d="M17 2v20"/><path d="M2 12h20"/>
+                                <path d="M2 7h5"/><path d="M2 17h5"/>
+                                <path d="M17 17h5"/><path d="M17 7h5"/>
+                            </svg>
+                        </span>
                         <div class="nav-text">
                             <span class="label">Filmes</span>
                             <span class="count" id="count-cinema">0 itens</span>
@@ -88,11 +94,12 @@
                 </nav>
 
                 <div class="progresso-box">
-                    <p class="box-title">PROGRESSO</p>
+                    <p class="box-title">Progresso</p>
                     <div id="progresso-stats-list"></div>
                 </div>
             </aside>
 
+            <!-- Conteúdo Principal -->
             <main class="content-area">
                 <div class="content-header">
                     <div>
@@ -120,10 +127,11 @@
                     <p class="modal-tag cyan-text" id="add-modal-title">&#9672; Nova Entrada</p>
                     <h2>Catalogar Mídia</h2>
                 </div>
+                <button class="close-icon close-modal-btn" aria-label="Fechar modal">&#10005;</button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="add-title">Título</label>
+                    <label for="add-title">Título *</label>
                     <input type="text" id="add-title" placeholder="Nome da obra" required>
                 </div>
                 <div class="form-group">
@@ -202,8 +210,7 @@
         </div>
     </div>
 
-    <!-- Script principal (limpo, sem dados iniciais, com diagnóstico) -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <!-- Script principal -->
     <script src="script.js"></script>
 </body>
 </html>
