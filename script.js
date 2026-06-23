@@ -20,15 +20,13 @@ try {
 }
 
 // ============================================
-//  CONFIGURAÇÕES DO COFRE CÓSMICO
+//  CONFIGURAÇÕES — CORES PASTEL COZY
 // ============================================
-// 🧹 ACERVO COMEÇA VAZIO — sem dados de exemplo!
-
 const STATUS_CONFIG = {
-    progresso: { label: "Em Progresso", color: "#11CAA0", glow: "0 0 12px #11CAA0aa" },
-    concluido: { label: "Concluído", color: "#BC84EE", glow: "0 0 12px #BC84EEaa" },
-    pausado:   { label: "Pausado",   color: "#FDD5BD", glow: "0 0 12px #FDD5BDaa" },
-    quero:     { label: "Quero Ver/Ler", color: "#84b4ee", glow: "0 0 12px #84b4eeaa" }
+    progresso: { label: "Em Progresso", color: "#87B4A0", glow: "0 0 10px rgba(135, 180, 160, 0.4)" },
+    concluido: { label: "Concluído",    color: "#9B8FD0", glow: "0 0 10px rgba(155, 143, 208, 0.4)" },
+    pausado:   { label: "Pausado",      color: "#D4A373", glow: "0 0 10px rgba(212, 163, 115, 0.4)" },
+    quero:     { label: "Quero Ver/Ler", color: "#C4B5D4", glow: "0 0 10px rgba(196, 181, 212, 0.4)" }
 };
 
 const TYPE_CONFIG = {
@@ -60,9 +58,7 @@ const FETCH_TIMEOUT = 8000;
 function withTimeout(promise, ms) {
     return Promise.race([
         promise,
-        new Promise((_, reject) =>
-            setTimeout(() => reject(new Error('Timeout')), ms)
-        )
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), ms))
     ]);
 }
 
@@ -179,14 +175,14 @@ async function deleteFromSupabase(id) {
 }
 
 // ============================================
-//  FUNÇÃO GLOBAL: Fallback para imagens quebradas
+//  FALLBACK PARA IMAGENS QUEBRADAS — TEMA COZY
 // ============================================
 function handleImgError(img, title) {
     img.style.display = 'none';
     const wrapper = img.parentElement;
-    wrapper.style.background = 'linear-gradient(135deg, rgba(188,132,238,0.2), rgba(17,202,160,0.1))';
+    wrapper.style.background = 'linear-gradient(135deg, rgba(212, 163, 115, 0.15), rgba(155, 143, 208, 0.1))';
     const fallback = document.createElement('div');
-    fallback.style.cssText = 'display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,0.3);font-size:14px;font-family:Cinzel;text-align:center;padding:10px';
+    fallback.style.cssText = 'display:flex;align-items:center;justify-content:center;height:100%;color:rgba(74,62,61,0.3);font-size:13px;font-family:"Nunito",sans-serif;font-weight:700;text-align:center;padding:16px;letter-spacing:0.02em';
     fallback.textContent = title;
     wrapper.appendChild(fallback);
 }
@@ -195,6 +191,25 @@ function handleImgError(img, title) {
 //  INICIALIZAÇÃO
 // ============================================
 document.addEventListener("DOMContentLoaded", async () => {
+    // Verificar autenticação
+    const session = localStorage.getItem('angelnessa_session') || sessionStorage.getItem('angelnessa_session');
+    if (!session) {
+        window.location.replace('login.html');
+        return;
+    }
+    try {
+        const data = JSON.parse(session);
+        if (!data.loggedIn || (Date.now() - data.timestamp) > 7 * 24 * 60 * 60 * 1000) {
+            localStorage.removeItem('angelnessa_session');
+            sessionStorage.removeItem('angelnessa_session');
+            window.location.replace('login.html');
+            return;
+        }
+    } catch(e) {
+        window.location.replace('login.html');
+        return;
+    }
+
     generateParticles();
     generateStars();
     await loadData();
@@ -206,7 +221,7 @@ function generateParticles() {
     const field = document.getElementById("particle-field");
     if (!field) return;
     const fragment = document.createDocumentFragment();
-    const colors = ['rgba(188, 132, 238, 0.4)', 'rgba(17, 202, 160, 0.3)', 'rgba(255, 107, 157, 0.3)', 'rgba(255, 255, 255, 0.5)'];
+    const colors = ['rgba(212, 163, 115, 0.3)', 'rgba(135, 180, 160, 0.25)', 'rgba(196, 181, 212, 0.25)', 'rgba(255, 255, 255, 0.4)'];
     for (let i = 0; i < 25; i++) {
         const particle = document.createElement("div");
         particle.className = "particle";
@@ -343,7 +358,7 @@ function renderSidebarCounts() {
         if (count > 0) {
             const row = document.createElement("div");
             row.className = "stat-row";
-            row.innerHTML = `<span style="color: rgba(255,255,255,0.3)">${cfg.label}</span><span style="color: ${cfg.color}; font-weight: 600">${count}</span>`;
+            row.innerHTML = `<span style="color: rgba(74,62,61,0.5)">${cfg.label}</span><span style="color: ${cfg.color}; font-weight: 700">${count}</span>`;
             fragment.appendChild(row);
         }
     });
@@ -363,7 +378,12 @@ function renderGrid() {
     if (pageTitle) pageTitle.textContent = `${TYPE_CONFIG[currentFilter].icon} ${TYPE_CONFIG[currentFilter].label}`;
     if (pageSubtitle) pageSubtitle.textContent = `${filteredItems.length} ${filteredItems.length === 1 ? 'obra catalogada' : 'obras catalogadas'} no acervo`;
     if (filteredItems.length === 0) {
-        grid.innerHTML = `<div class="no-data"><div style="font-size: 48px; margin-bottom: 16px; opacity: 0.4">${TYPE_CONFIG[currentFilter].icon}</div><p style="font-size: 16px; margin-bottom: 8px; font-style: italic; font-family: 'Crimson Text', serif">O acervo aguarda suas histórias...</p><p style="font-size: 12px; color: rgba(255,255,255,0.2)">Clique em "Nova Obra" para começar</p></div>`;
+        grid.innerHTML = `
+            <div class="no-data">
+                <div class="no-data-icon">${TYPE_CONFIG[currentFilter].icon}</div>
+                <p class="no-data-title">O acervo aguarda suas histórias...</p>
+                <p class="no-data-hint">Clique em "Nova Obra" para começar</p>
+            </div>`;
         return;
     }
     const fragment = document.createDocumentFragment();
@@ -393,7 +413,7 @@ function createMediaCard(item, index) {
     const statusCfg = STATUS_CONFIG[item.status];
     card.innerHTML = `
         <div class="cover-wrapper">
-            <img src="${escapeHtml(item.cover)}" alt="Capa de ${escapeHtml(item.title)}" loading="lazy" onerror="handleImgError(this, '${escapeHtml(item.title).replace(/'/g, "\'")}')">
+            <img src="${escapeHtml(item.cover)}" alt="Capa de ${escapeHtml(item.title)}" loading="lazy" onerror="handleImgError(this, '${escapeHtml(item.title).replace(/'/g, "\\'")}')">
             <div class="cover-mask"></div>
             <span class="media-type-badge">${TYPE_LABELS[item.type]}</span>
         </div>
@@ -402,7 +422,7 @@ function createMediaCard(item, index) {
             <p class="genre">${escapeHtml(item.genre)}</p>
             <div class="card-meta">
                 ${starsHtml}
-                <span class="status-tag" data-status="${item.status}" style="color: ${statusCfg.color}; border: 1px solid ${statusCfg.color}44; background: ${statusCfg.color}18">
+                <span class="status-tag" data-status="${item.status}" style="color: ${statusCfg.color}; border: 1px solid ${statusCfg.color}44; background: ${statusCfg.color}15">
                     <span class="dot" style="background: ${statusCfg.color}; box-shadow: ${statusCfg.glow}"></span>
                     ${statusCfg.label}
                 </span>
@@ -685,9 +705,9 @@ function openEditModal(item) {
         btn.setAttribute("aria-checked", active ? "true" : "false");
         btn.textContent = cfg.label;
         if (active) {
-            btn.style.background = `${cfg.color}25`;
+            btn.style.background = `${cfg.color}20`;
             btn.style.color = cfg.color;
-            btn.style.borderColor = `${cfg.color}88`;
+            btn.style.borderColor = `${cfg.color}60`;
             btn.style.boxShadow = cfg.glow;
         }
         btn.addEventListener("click", (e) => {
@@ -701,9 +721,9 @@ function openEditModal(item) {
             });
             e.currentTarget.classList.add("active");
             e.currentTarget.setAttribute("aria-checked", "true");
-            e.currentTarget.style.background = `${cfg.color}25`;
+            e.currentTarget.style.background = `${cfg.color}20`;
             e.currentTarget.style.color = cfg.color;
-            e.currentTarget.style.borderColor = `${cfg.color}88`;
+            e.currentTarget.style.borderColor = `${cfg.color}60`;
             e.currentTarget.style.boxShadow = cfg.glow;
         });
         container.appendChild(btn);
