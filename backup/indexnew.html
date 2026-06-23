@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angel-Nessa Archive</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImcxIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojQkM4NEVFIi8+PHN0b3Agb2Zmc2V0PSI1MCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxMUNBMDAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNGRkQ1QkQiLz48L2xpbmVhckdyYWRpZW50PjxmaWx0ZXIgaWQ9Imdsb3ciPjxmZUdhdXNzaWFuQmx1ciBzdGREZXZpYXRpb249IjMiIHJlc3VsdD0iY29sb3JlZEJsdXIiLz48ZmVNZXJnZT48ZmVNZXJnZU5vZGUgaW49ImNvbG9yZWRCbHVyIi8+PGZlTWVyZ2VOb2RlIGluPSJTb3VyY2VHcmFwaGljIi8+PC9mZU1lcmdlPjwvZmlsdGVyPjwvZGVmcz48cGF0aCBkPSJNNTAgNSBMNjAgNDAgTDk1IDUwIEw2MCA2MCBMNTAgOTUgTDQwIDYwIEw1IDUwIEw0MCA0MCBaIiBmaWxsPSJ1cmwoI2cxKSIgZmlsdGVyPSJ1cmwoI2dsb3cpIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4zKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iOCIgZmlsbD0id2hpdGUiIG9wYWNpdHk9IjAuOSIvPjwvc3ZnPg==">
+    <link rel="stylesheet" href="style.css">
+    <!-- Supabase JS Client local (você já tem esse arquivo) -->
+    <script src="supabase-js.js"></script>
+<base target="_blank">
+<base target="_blank">
+</head>
+<body>
+
+    <!-- Background Cósmico Animado -->
+    <div class="cosmic-bg" aria-hidden="true">
+        <div class="nebula-layer nebula-1"></div>
+        <div class="nebula-layer nebula-2"></div>
+        <div class="nebula-layer nebula-3"></div>
+        <div class="nebula-layer nebula-4"></div>
+        <div class="aurora aurora-1"></div>
+        <div class="aurora aurora-2"></div>
+        <div class="aurora aurora-3"></div>
+        <div class="particle-field" id="particle-field"></div>
+        <div class="stars-field" id="stars-field"></div>
+    </div>
+
+    <div class="vault-window">
+
+        <div class="title-bar">
+            <div class="window-controls" aria-label="Controles da janela">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+            </div>
+            <div class="title-text">
+                <span aria-hidden="true">&#10022;</span>
+                <span class="brand">WELCOME TO ANGEL-NESSA ARCHIVE</span>
+                <span aria-hidden="true">&#10022;</span>
+            </div>
+            <div class="global-stats">
+                <span id="stat-total">0 obras</span>
+                <span id="stat-concluidos" class="purple-text">0 concluídas</span>
+            </div>
+        </div>
+
+        <div class="window-body">
+
+            <aside class="sidebar" role="navigation" aria-label="Navegação principal">
+                <p class="section-title">Navegar</p>
+                <nav class="nav-menu">
+                    <button class="nav-btn active" data-nav="galaxia" aria-pressed="true" role="tab">
+                        <span class="icon" aria-hidden="true">&#10022;</span>
+                        <div class="nav-text">
+                            <span class="label">Galáxia</span>
+                            <span class="count" id="count-galaxia">0 itens</span>
+                        </div>
+                    </button>
+                    <button class="nav-btn" data-nav="odisseia" aria-pressed="false" role="tab">
+                        <span class="icon" aria-hidden="true">&#9672;</span>
+                        <div class="nav-text">
+                            <span class="label">Jogos</span>
+                            <span class="count" id="count-odisseia">0 itens</span>
+                        </div>
+                    </button>
+                    <button class="nav-btn" data-nav="grimorio" aria-pressed="false" role="tab">
+                        <span class="icon" aria-hidden="true">&#10209;</span>
+                        <div class="nav-text">
+                            <span class="label">Grimórios</span>
+                            <span class="count" id="count-grimorio">0 itens</span>
+                        </div>
+                    </button>
+                    <button class="nav-btn" data-nav="visao" aria-pressed="false" role="tab">
+                        <span class="icon" aria-hidden="true">&#9673;</span>
+                        <div class="nav-text">
+                            <span class="label">Séries</span>
+                            <span class="count" id="count-visao">0 itens</span>
+                        </div>
+                    </button>
+                    <button class="nav-btn" data-nav="cinema" aria-pressed="false" role="tab">
+                        <span class="icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><path d="M7 2v20"/><path d="M17 2v20"/><path d="M2 12h20"/><path d="M2 7h5"/><path d="M2 17h5"/><path d="M17 17h5"/><path d="M17 7h5"/></svg></span>
+                        <div class="nav-text">
+                            <span class="label">Filmes</span>
+                            <span class="count" id="count-cinema">0 itens</span>
+                        </div>
+                    </button>
+                </nav>
+
+                <div class="progresso-box">
+                    <p class="box-title">PROGRESSO</p>
+                    <div id="progresso-stats-list"></div>
+                </div>
+            </aside>
+
+            <main class="content-area">
+                <div class="content-header">
+                    <div>
+                        <h1 id="page-title">&#10022; Galáxia</h1>
+                        <p id="page-subtitle" class="subtitle">Carregando acervo...</p>
+                    </div>
+                    <button class="add-btn" id="open-add-modal" aria-label="Adicionar nova obra">
+                        <span aria-hidden="true">&#9672;</span> Nova Obra
+                    </button>
+                </div>
+
+                <div class="media-grid" id="media-grid" role="region" aria-label="Grade de mídias"></div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Modal Adicionar -->
+    <div class="modal-overlay" id="add-modal" role="dialog" aria-modal="true" aria-labelledby="add-modal-title" aria-hidden="true">
+        <div class="modal-card border-cyan">
+            <div class="modal-header">
+                <div>
+                    <p class="modal-tag cyan-text" id="add-modal-title">&#9672; Nova Entrada</p>
+                    <h2>Catalogar Mídia</h2>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="add-title">Título</label>
+                    <input type="text" id="add-title" placeholder="Nome da obra" required>
+                </div>
+                <div class="form-group">
+                    <label for="add-genre">Gênero</label>
+                    <input type="text" id="add-genre" placeholder="Ex: Sci-Fi, RPG, Shonen">
+                </div>
+                <div class="form-group">
+                    <label for="add-cover">URL da Capa</label>
+                    <input type="url" id="add-cover" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label>Tipo</label>
+                    <div class="type-selector-buttons" role="radiogroup" aria-label="Selecionar tipo de mídia">
+                        <button class="type-btn active" data-type="odisseia" role="radio" aria-checked="true">Jogo</button>
+                        <button class="type-btn" data-type="grimorio" role="radio" aria-checked="false">Livro</button>
+                        <button class="type-btn" data-type="visao" role="radio" aria-checked="false">Anime</button>
+                        <button class="type-btn" data-type="cinema" role="radio" aria-checked="false">Filme</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="add-status">Status</label>
+                    <select id="add-status">
+                        <option value="quero">Quero Ver/Ler</option>
+                        <option value="progresso">Em Progresso</option>
+                        <option value="concluido">Concluído</option>
+                        <option value="pausado">Pausado</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label id="add-stars-label">Avaliação</label>
+                    <div class="stars-picker" id="add-stars-picker" data-rating="3" role="radiogroup" aria-labelledby="add-stars-label"></div>
+                </div>
+                <div class="form-group">
+                    <label for="add-review">Resenha</label>
+                    <textarea id="add-review" rows="2" placeholder="Suas impressões..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary close-modal-btn">Cancelar</button>
+                <button class="btn-primary bg-cyan" id="save-add-btn">&#9672; Catalogar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar -->
+    <div class="modal-overlay" id="edit-modal" role="dialog" aria-modal="true" aria-labelledby="edit-modal-title" aria-hidden="true">
+        <div class="modal-card border-purple">
+            <div class="modal-header">
+                <div>
+                    <p class="modal-tag purple-text">&#10022; Editar Registro</p>
+                    <h2 id="edit-modal-title">Título da Obra</h2>
+                </div>
+                <button class="close-icon close-modal-btn" aria-label="Fechar modal">&#10005;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Status</label>
+                    <div class="status-selector-buttons" id="edit-status-container" role="radiogroup" aria-label="Selecionar status"></div>
+                </div>
+                <div class="form-group">
+                    <label id="edit-stars-label">Avaliação</label>
+                    <div class="stars-picker" id="edit-stars-picker" data-rating="0" role="radiogroup" aria-labelledby="edit-stars-label"></div>
+                </div>
+                <div class="form-group">
+                    <label for="edit-review">Resenha Pessoal</label>
+                    <textarea id="edit-review" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-danger" id="delete-btn">Remover</button>
+                <div class="footer-right">
+                    <button class="btn-secondary close-modal-btn">Cancelar</button>
+                    <button class="btn-primary bg-purple" id="save-edit-btn">&#10022; Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script principal (limpo, sem dados iniciais, com diagnóstico) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
