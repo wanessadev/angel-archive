@@ -30,12 +30,12 @@ const STATUS_CONFIG = {
 };
 
 const TYPE_CONFIG = {
-    galaxia:  { label: "Galáxia",   icon: "✦", filter: null },
-    odisseia: { label: "Jogos",     icon: "◈", filter: "odisseia" },
-    grimorio: { label: "Grimórios", icon: "⟁", filter: "grimorio" },
-    visao:    { label: "Séries",    icon: "◉", filter: "visao" },
-    anime:    { label: "Animes",    icon: "✦", filter: "anime" },
-    cinema:   { label: "Filmes",    icon: "▶", filter: "cinema" }
+    galaxia:  { label: "Galáxia",   icon: "\u2726", filter: null },
+    odisseia: { label: "Jogos",     icon: "\u25C8", filter: "odisseia" },
+    grimorio: { label: "Grimórios", icon: "\u27C1", filter: "grimorio" },
+    visao:    { label: "Séries",    icon: "\u25C9", filter: "visao" },
+    anime:    { label: "Animes",    icon: "\u2726", filter: "anime" },
+    cinema:   { label: "Filmes",    icon: "\u25B6", filter: "cinema" }
 };
 
 const TYPE_LABELS = { odisseia: "Jogo", grimorio: "Livro", visao: "Série", anime: "Anime", cinema: "Filme" };
@@ -189,28 +189,52 @@ function handleImgError(img, title) {
 }
 
 // ============================================
-//  INICIALIZAÇÃO
+//  INICIALIZAÇÃO — COM VERIFICAÇÃO DE LOGIN.HTML
 // ============================================
 document.addEventListener("DOMContentLoaded", async () => {
-    // Verificar autenticação
+    // Verificar autenticação com fallback se login.html não existir
     const session = localStorage.getItem('angelnessa_session') || sessionStorage.getItem('angelnessa_session');
+
     if (!session) {
-        window.location.href = 'login.html?from=logout';
-        return;
-    }
-    try {
-        const data = JSON.parse(session);
-        if (!data.loggedIn || (Date.now() - data.timestamp) > 7 * 24 * 60 * 60 * 1000) {
+        // Verificar se login.html existe antes de redirecionar (evita loop infinito)
+        try {
+            const response = await fetch('login.html', { method: 'HEAD', cache: 'no-store' });
+            if (response.ok) {
+                window.location.href = 'login.html?from=logout';
+                return;
+            } else {
+                console.warn('login.html não encontrado (status ' + response.status + '). Continuando sem autenticação.');
+                // Continua carregando o dashboard sem sessão
+            }
+        } catch (err) {
+            console.warn('Não foi possível verificar login.html:', err);
+            // Continua carregando o dashboard sem autenticação
+        }
+    } else {
+        // Verificar se a sessão ainda é válida
+        try {
+            const data = JSON.parse(session);
+            if (!data.loggedIn || (Date.now() - data.timestamp) > 7 * 24 * 60 * 60 * 1000) {
+                localStorage.removeItem('angelnessa_session');
+                sessionStorage.removeItem('angelnessa_session');
+                // Tentar redirecionar, mas com fallback
+                try {
+                    const response = await fetch('login.html', { method: 'HEAD', cache: 'no-store' });
+                    if (response.ok) {
+                        window.location.href = 'login.html?from=logout';
+                        return;
+                    }
+                } catch (e) {
+                    console.warn('login.html não acessível');
+                }
+            }
+        } catch(e) {
             localStorage.removeItem('angelnessa_session');
             sessionStorage.removeItem('angelnessa_session');
-            window.location.href = 'login.html?from=logout';
-            return;
         }
-    } catch(e) {
-        window.location.href = 'login.html?from=logout';
-        return;
     }
 
+    // Se chegou aqui, continua carregando o dashboard
     generateParticles();
     generateStars();
     await loadData();
@@ -345,13 +369,11 @@ function renderSidebarCounts() {
     const countGrimorio = document.getElementById("count-grimorio");
     const countVisao = document.getElementById("count-visao");
     const countAnime = document.getElementById("count-anime");
-    const countAnime = document.getElementById("count-anime");
     const countCinema = document.getElementById("count-cinema");
     if (countGalaxia) countGalaxia.textContent = `${mediaItems.length} itens`;
     if (countOdisseia) countOdisseia.textContent = `${mediaItems.filter(m => m.type === "odisseia").length} itens`;
     if (countGrimorio) countGrimorio.textContent = `${mediaItems.filter(m => m.type === "grimorio").length} itens`;
     if (countVisao) countVisao.textContent = `${mediaItems.filter(m => m.type === "visao").length} itens`;
-    if (countAnime) countAnime.textContent = `${mediaItems.filter(m => m.type === "anime").length} itens`;
     if (countAnime) countAnime.textContent = `${mediaItems.filter(m => m.type === "anime").length} itens`;
     if (countCinema) countCinema.textContent = `${mediaItems.filter(m => m.type === "cinema").length} itens`;
     const statsList = document.getElementById("progresso-stats-list");
@@ -457,7 +479,7 @@ function escapeHtml(text) {
 }
 
 // ============================================
-//  PICKER DE ESTRELAS
+//  PICKER DE ESTRELAS — INTERATIVO
 // ============================================
 function initStarsPicker(containerId, initialRating) {
     const container = document.getElementById(containerId);
