@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#F2EBE4">
+    <title>Angel-Nessa Archive — Recuperar Senha</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImcxIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojRDRCMzczIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojRTBDNEEyIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNDAiIGZpbGw9InVybCgjZzEpIi8+PHN2ZyB4PSIzMCIgeT0iMzAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgM2MxLjY2IDAgMyAxLjM0IDMgM3MtMS4zNCAzLTMgMy0zLTEuMzQtMy0zIDEuMzQtMyAzLTN6bTAgMTQuMmMtMi41IDAtNC43MS0xLjI4LTYtMy4yMi4wMy0xLjk5IDQtMy4wOCA2LTMuMDggMS45OSAwIDUuOTcgMS4wOSA2IDMuMDgtMS4yOSAxLjk0LTMuNSAzLjIyLTYgMy4yMnoiLz48L3N2Zz48L3N2Zz4=">
+    <link rel="stylesheet" href="style.css">
+<base target="_blank">
+</head>
+<body>
+    <!-- Background Cozy -->
+    <div class="cosmic-bg" aria-hidden="true">
+        <div class="nebula-layer nebula-1"></div>
+        <div class="nebula-layer nebula-2"></div>
+        <div class="nebula-layer nebula-3"></div>
+        <div class="nebula-layer nebula-4"></div>
+    </div>
+
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="login-page">
+        <div class="login-wrapper">
+            <div class="login-card">
+                <div class="avatar-container">
+                    <div class="avatar-circle" style="background: linear-gradient(135deg, #C4B5D4, #D4C5E4);">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:40px;height:40px;fill:white">
+                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                        </svg>
+                    </div>
+                    <h1 class="login-title">Esqueceu a senha? 🔐</h1>
+                    <p class="login-subtitle">Não se preocupe, vamos te ajudar</p>
+                </div>
+
+                <!-- Etapa 1: Solicitar e-mail -->
+                <div id="step-email">
+                    <form id="forgotForm" autocomplete="off" novalidate>
+                        <div class="login-input-group">
+                            <label for="forgot-email">E-mail cadastrado</label>
+                            <input type="email" id="forgot-email" class="login-input" placeholder="seu@email.com" required autocomplete="email">
+                        </div>
+
+                        <p style="font-size:12px;color:var(--text-muted);margin-bottom:20px;line-height:1.6">
+                            Enviaremos um link de recuperação para o seu e-mail. Verifique também a caixa de spam!
+                        </p>
+
+                        <button type="submit" class="login-button" id="forgotBtn" style="background: linear-gradient(135deg, #C4B5D4, #9B8FD0);">
+                            Enviar Link de Recuperação 💌
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Etapa 2: Sucesso -->
+                <div id="step-success" style="display:none;text-align:center;padding:20px 0">
+                    <div style="width:70px;height:70px;background:linear-gradient(135deg,#87B4A0,#A8C5B8);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 8px24px rgba(135,180,160,0.25)">
+                        <svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:white"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    </div>
+                    <h2 style="font-size:18px;color:var(--text-main);margin-bottom:8px;font-weight:800">E-mail enviado!</h2>
+                    <p style="font-size:13px;color:var(--text-muted);margin-bottom:24px;line-height:1.6">
+                        Verifique sua caixa de entrada e siga as instruções para redefinir sua senha.
+                    </p>
+                    <a href="login.html" class="login-button" style="display:inline-block;text-decoration:none;background:linear-gradient(135deg,var(--accent),var(--peach));text-align:center">
+                        Voltar para o Login ✨
+                    </a>
+                </div>
+
+                <div class="login-footer" style="margin-top:24px">
+                    <p>Lembrou a senha? <a href="login.html">Entrar</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast hidden" id="toast">
+        <div class="toast-icon">✓</div>
+        <span id="toastMessage">E-mail enviado!</span>
+    </div>
+
+    <script>
+        (function() {
+            const form = document.getElementById('forgotForm');
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            const forgotBtn = document.getElementById('forgotBtn');
+            const stepEmail = document.getElementById('step-email');
+            const stepSuccess = document.getElementById('step-success');
+
+            function showToast(message, type) {
+                toastMessage.textContent = message;
+                toast.classList.toggle('error', type === 'error');
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 3000);
+            }
+
+            function setLoading(loading) {
+                if (loading) {
+                    forgotBtn.innerHTML = 'Enviando... <span class="spinner"></span>';
+                    forgotBtn.disabled = true;
+                    forgotBtn.style.opacity = '0.85';
+                } else {
+                    forgotBtn.innerHTML = 'Enviar Link de Recuperação 💌';
+                    forgotBtn.disabled = false;
+                    forgotBtn.style.opacity = '1';
+                }
+            }
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('forgot-email').value.trim();
+
+                if (!email) { showToast('Por favor, digite seu e-mail!', 'error'); document.getElementById('forgot-email').focus(); return; }
+
+                // Verificar se o e-mail existe
+                const users = JSON.parse(localStorage.getItem('angelnessa_users') || '[]');
+                const user = users.find(u => u.email === email);
+                if (!user) {
+                    showToast('E-mail não encontrado. Verifique ou crie uma conta!', 'error');
+                    return;
+                }
+
+                setLoading(true);
+                setTimeout(() => {
+                    // Simular envio de e-mail
+                    showToast('Link de recuperação enviado! 💌');
+                    stepEmail.style.display = 'none';
+                    stepSuccess.style.display = 'block';
+                }, 1500);
+            });
+
+            // Animação nos inputs
+            document.querySelectorAll('.login-input').forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.style.transform = 'scale(1.01)';
+                    this.parentElement.style.transition = 'transform 0.3s ease';
+                });
+                input.addEventListener('blur', function() {
+                    this.parentElement.style.transform = 'scale(1)';
+                });
+            });
+
+            // Digitação no título
+            const title = document.querySelector('.login-title');
+            const originalText = title.textContent;
+            title.textContent = '';
+            let i = 0;
+            function typeWriter() {
+                if (i < originalText.length) {
+                    title.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 70);
+                }
+            }
+            setTimeout(typeWriter, 500);
+        })();
+    </script>
+</body>
+</html>
