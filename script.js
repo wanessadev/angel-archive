@@ -30,14 +30,15 @@ const STATUS_CONFIG = {
 };
 
 const TYPE_CONFIG = {
-    galaxia:  { label: "Galáxia",   icon: "\u2726", filter: null },
-    odisseia: { label: "Jogos",     icon: "\u25C8", filter: "odisseia" },
-    grimorio: { label: "Grimórios", icon: "\u27C1", filter: "grimorio" },
-    visao:    { label: "Séries",    icon: "\u25C9", filter: "visao" },
-    cinema:   { label: "Filmes",    icon: "\u25B6", filter: "cinema" }
+    galaxia:  { label: "Galáxia",   icon: "✦", filter: null },
+    odisseia: { label: "Jogos",     icon: "◈", filter: "odisseia" },
+    grimorio: { label: "Grimórios", icon: "⟁", filter: "grimorio" },
+    visao:    { label: "Séries",    icon: "◉", filter: "visao" },
+    anime:    { label: "Animes",    icon: "✦", filter: "anime" },
+    cinema:   { label: "Filmes",    icon: "▶", filter: "cinema" }
 };
 
-const TYPE_LABELS = { odisseia: "Jogo", grimorio: "Livro", visao: "Série", cinema: "Filme" };
+const TYPE_LABELS = { odisseia: "Jogo", grimorio: "Livro", visao: "Série", anime: "Anime", cinema: "Filme" };
 
 // ============================================
 //  ESTADO GLOBAL
@@ -343,11 +344,15 @@ function renderSidebarCounts() {
     const countOdisseia = document.getElementById("count-odisseia");
     const countGrimorio = document.getElementById("count-grimorio");
     const countVisao = document.getElementById("count-visao");
+    const countAnime = document.getElementById("count-anime");
+    const countAnime = document.getElementById("count-anime");
     const countCinema = document.getElementById("count-cinema");
     if (countGalaxia) countGalaxia.textContent = `${mediaItems.length} itens`;
     if (countOdisseia) countOdisseia.textContent = `${mediaItems.filter(m => m.type === "odisseia").length} itens`;
     if (countGrimorio) countGrimorio.textContent = `${mediaItems.filter(m => m.type === "grimorio").length} itens`;
     if (countVisao) countVisao.textContent = `${mediaItems.filter(m => m.type === "visao").length} itens`;
+    if (countAnime) countAnime.textContent = `${mediaItems.filter(m => m.type === "anime").length} itens`;
+    if (countAnime) countAnime.textContent = `${mediaItems.filter(m => m.type === "anime").length} itens`;
     if (countCinema) countCinema.textContent = `${mediaItems.filter(m => m.type === "cinema").length} itens`;
     const statsList = document.getElementById("progresso-stats-list");
     if (!statsList) return;
@@ -438,7 +443,7 @@ function createMediaCard(item, index) {
 function buildStarsHtml(rating) {
     let html = '<div class="stars-display">';
     for (let i = 1; i <= 5; i++) {
-        html += `<span class="star-icon ${i <= rating ? 'filled' : ''}" aria-hidden="true">&#10022;</span>`;
+        html += `<span class="star-icon ${i <= rating ? 'filled' : ''}" aria-hidden="true">&#9733;</span>`;
     }
     html += '</div>';
     return html;
@@ -458,39 +463,63 @@ function initStarsPicker(containerId, initialRating) {
     const container = document.getElementById(containerId);
     if (!container) return;
     let currentRating = initialRating;
-    function renderStars(displayRating) {
+    let isHovering = false;
+
+    function renderStars(displayRating, hoverMode) {
         container.innerHTML = "";
         for (let i = 1; i <= 5; i++) {
             const star = document.createElement("span");
             const isFilled = i <= displayRating;
             star.className = `star-icon ${isFilled ? 'filled' : ''}`;
-            star.innerHTML = "&#10022;";
+            star.innerHTML = "&#9733;";
             star.setAttribute("role", "radio");
             star.setAttribute("aria-checked", isFilled ? "true" : "false");
             star.setAttribute("aria-label", `${i} estrela${i > 1 ? 's' : ''}`);
             star.setAttribute("tabindex", "0");
             star.setAttribute("data-value", i);
-            star.addEventListener("mouseenter", () => renderStars(i));
+
+            // Hover: visualização temporária
+            star.addEventListener("mouseenter", () => {
+                isHovering = true;
+                renderStars(i, true);
+            });
+
+            // Click: define rating definitivo
             star.addEventListener("click", (e) => {
                 e.stopPropagation();
                 currentRating = i;
                 container.setAttribute("data-rating", currentRating);
-                renderStars(currentRating);
+                isHovering = false;
+                renderStars(currentRating, false);
+                // Animação de confirmação
+                star.style.transform = 'scale(1.4)';
+                setTimeout(() => { star.style.transform = ''; }, 200);
             });
+
+            // Keyboard support
             star.addEventListener("keydown", (e) => {
                 if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
                     currentRating = i;
                     container.setAttribute("data-rating", currentRating);
-                    renderStars(currentRating);
+                    renderStars(currentRating, false);
                 }
             });
+
             container.appendChild(star);
         }
     }
-    container.addEventListener("mouseleave", () => renderStars(currentRating));
+
+    // Mouse leave: volta pro rating salvo
+    container.addEventListener("mouseleave", () => {
+        if (isHovering) {
+            isHovering = false;
+            renderStars(currentRating, false);
+        }
+    });
+
     container.setAttribute("data-rating", currentRating);
-    renderStars(currentRating);
+    renderStars(currentRating, false);
 }
 
 // ============================================
