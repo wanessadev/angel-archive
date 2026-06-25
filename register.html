@@ -148,7 +148,7 @@
 
                 setLoading(true);
                 setTimeout(() => {
-                    // Salvar usuário "mock" no localStorage
+                    // Salvar usuário no localStorage
                     const users = JSON.parse(localStorage.getItem('angelnessa_users') || '[]');
                     if (users.find(u => u.email === email)) {
                         showToast('Este e-mail já está cadastrado!', 'error');
@@ -161,8 +161,10 @@
                     // Auto-login
                     localStorage.setItem('angelnessa_session', JSON.stringify({ email, name, loggedIn: true, timestamp: Date.now() }));
 
-                    showToast(`Bem-vinda, ${name}! Sua conta foi criada! 🌸`);
-                    setTimeout(() => window.location.href = 'index.html', 1200);
+                    showToast('Bem-vinda, ' + name + '! Sua conta foi criada! 🌸');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1200);
                 }, 1500);
             });
 
