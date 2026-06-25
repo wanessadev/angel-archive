@@ -1,5 +1,10 @@
 // ============================================
-//  SUPABASE CONFIGURAÇÃO
+//  ANGEL-NESSA ARCHIVE — SCRIPT PRINCIPAL
+//  Com Supabase + fallback inteligente
+// ============================================
+
+// ============================================
+//  SUPABASE CONFIGURAÇÃO — CREDENCIAIS ORIGINAIS
 // ============================================
 const SUPABASE_URL = 'https://niaritlethlmrrpspwow.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5pYXJpdGxldGhsbXJycHNwd293Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxMTA4NTIsImV4cCI6MjA5NDY4Njg1Mn0.CTQZNUmjQOSJqc2dv0SnKiZ94tfOdQAqX0flBiKIY0w';
@@ -7,16 +12,18 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 let supabaseClient = null;
 let supabaseAvailable = false;
 
-try {
-    if (typeof supabase !== 'undefined' && supabase.createClient) {
+// Inicializar Supabase
+if (typeof supabase !== 'undefined' && supabase.createClient) {
+    try {
         supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         supabaseAvailable = true;
-    } else {
-        console.warn('Biblioteca Supabase não carregada. Modo offline ativado.');
+        console.log('✅ Cliente Supabase criado');
+    } catch (e) {
+        console.warn('⚠️ Erro ao criar cliente Supabase:', e);
+        supabaseAvailable = false;
     }
-} catch (e) {
-    console.error('Erro ao inicializar Supabase:', e);
-    supabaseAvailable = false;
+} else {
+    console.log('ℹ️ Biblioteca Supabase não carregada');
 }
 
 // ============================================
@@ -49,12 +56,21 @@ let selectedItemId = null;
 let saveTimeout = null;
 let lastFocusedElement = null;
 let revealTimeouts = [];
+let supabaseOnline = false; // detecta se está respondendo
 
 // ============================================
-//  SUPABASE CRUD
+//  FUNÇÃO DE LOGOUT
 // ============================================
+function logout() {
+    localStorage.removeItem('angelnessa_session');
+    sessionStorage.removeItem('angelnessa_session');
+    window.location.href = 'login.html?from=logout';
+}
 
-const FETCH_TIMEOUT = 8000;
+// ============================================
+//  SUPABASE CRUD — COM TIMEOUT E FALLBACK
+// ============================================
+const FETCH_TIMEOUT = 8000; // 8 segundos (Supabase pausado demora ~5s para "acordar")
 
 function withTimeout(promise, ms) {
     return Promise.race([
@@ -63,8 +79,29 @@ function withTimeout(promise, ms) {
     ]);
 }
 
+async function testSupabaseConnection() {
+    if (!supabaseAvailable || !supabaseClient) return false;
+    try {
+        console.log('🔄 Testando conexão com Supabase...');
+        const { data, error } = await withTimeout(
+            supabaseClient.from('media_items').select('id').limit(1),
+            FETCH_TIMEOUT
+        );
+        if (error) {
+            console.warn('Supabase erro:', error.message);
+            return false;
+        }
+        console.log('✅ Supabase online e respondendo!');
+        return true;
+    } catch (e) {
+        console.warn('❌ Supabase não respondeu:', e.message || e);
+        console.log('💡 DICA: Se o projeto está pausado, acesse https://supabase.com, entre na sua conta e clique em "Restore" no projeto niaritlethlmrrpspwow');
+        return false;
+    }
+}
+
 async function loadFromSupabase() {
-    if (!supabaseAvailable || !supabaseClient) return null;
+    if (!supabaseAvailable || !supabaseClient || !supabaseOnline) return null;
     try {
         const { data, error } = await withTimeout(
             supabaseClient.from('media_items').select('*').order('created_at', { ascending: false }),
@@ -76,14 +113,14 @@ async function loadFromSupabase() {
         }
         return data || [];
     } catch (e) {
-        console.error('Falha na conexão Supabase:', e.message || e);
+        console.warn('Falha na conexão Supabase:', e.message || e);
         return null;
     }
 }
 
 async function saveToSupabase(item) {
-    if (!supabaseAvailable || !supabaseClient) {
-        console.warn('Supabase indisponível. Salvando apenas localmente.');
+    if (!supabaseAvailable || !supabaseClient || !supabaseOnline) {
+        console.log('Supabase indisponível. Salvando localmente.');
         return null;
     }
     try {
@@ -117,8 +154,8 @@ async function saveToSupabase(item) {
 }
 
 async function updateInSupabase(id, updates) {
-    if (!supabaseAvailable || !supabaseClient) {
-        console.warn('Supabase indisponível. Atualizando apenas localmente.');
+    if (!supabaseAvailable || !supabaseClient || !supabaseOnline) {
+        console.log('Supabase indisponível. Atualizando localmente.');
         return null;
     }
     try {
@@ -153,8 +190,8 @@ async function updateInSupabase(id, updates) {
 }
 
 async function deleteFromSupabase(id) {
-    if (!supabaseAvailable || !supabaseClient) {
-        console.warn('Supabase indisponível. Removendo apenas localmente.');
+    if (!supabaseAvailable || !supabaseClient || !supabaseOnline) {
+        console.log('Supabase indisponível. Removendo localmente.');
         return true;
     }
     try {
@@ -176,7 +213,7 @@ async function deleteFromSupabase(id) {
 }
 
 // ============================================
-//  FALLBACK PARA IMAGENS QUEBRADAS — TEMA COZY
+//  FALLBACK PARA IMAGENS QUEBRADAS
 // ============================================
 function handleImgError(img, title) {
     img.style.display = 'none';
@@ -189,117 +226,74 @@ function handleImgError(img, title) {
 }
 
 // ============================================
-//  INICIALIZAÇÃO — COM VERIFICAÇÃO DE LOGIN.HTML
+//  INICIALIZAÇÃO
 // ============================================
 document.addEventListener("DOMContentLoaded", async () => {
-    // Verificar autenticação com fallback se login.html não existir
+    // Verificar autenticação
     const session = localStorage.getItem('angelnessa_session') || sessionStorage.getItem('angelnessa_session');
 
     if (!session) {
-        // Verificar se login.html existe antes de redirecionar (evita loop infinito)
-        try {
-            const response = await fetch('login.html', { method: 'HEAD', cache: 'no-store' });
-            if (response.ok) {
-                window.location.href = 'login.html?from=logout';
-                return;
-            } else {
-                console.warn('login.html não encontrado (status ' + response.status + '). Continuando sem autenticação.');
-                // Continua carregando o dashboard sem sessão
-            }
-        } catch (err) {
-            console.warn('Não foi possível verificar login.html:', err);
-            // Continua carregando o dashboard sem autenticação
-        }
-    } else {
-        // Verificar se a sessão ainda é válida
-        try {
-            const data = JSON.parse(session);
-            if (!data.loggedIn || (Date.now() - data.timestamp) > 7 * 24 * 60 * 60 * 1000) {
-                localStorage.removeItem('angelnessa_session');
-                sessionStorage.removeItem('angelnessa_session');
-                // Tentar redirecionar, mas com fallback
-                try {
-                    const response = await fetch('login.html', { method: 'HEAD', cache: 'no-store' });
-                    if (response.ok) {
-                        window.location.href = 'login.html?from=logout';
-                        return;
-                    }
-                } catch (e) {
-                    console.warn('login.html não acessível');
-                }
-            }
-        } catch(e) {
-            localStorage.removeItem('angelnessa_session');
-            sessionStorage.removeItem('angelnessa_session');
-        }
+        window.location.href = 'login.html?from=logout';
+        return;
     }
 
-    // Se chegou aqui, continua carregando o dashboard
-    generateParticles();
-    generateStars();
+    // Verificar se a sessão ainda é válida (7 dias)
+    try {
+        const data = JSON.parse(session);
+        if (!data.loggedIn || (Date.now() - data.timestamp) > 7 * 24 * 60 * 60 * 1000) {
+            localStorage.removeItem('angelnessa_session');
+            sessionStorage.removeItem('angelnessa_session');
+            window.location.href = 'login.html?from=logout';
+            return;
+        }
+    } catch(e) {
+        localStorage.removeItem('angelnessa_session');
+        sessionStorage.removeItem('angelnessa_session');
+        window.location.href = 'login.html?from=logout';
+        return;
+    }
+
+    // Testar conexão com Supabase (não bloqueia o carregamento!)
+    supabaseOnline = await testSupabaseConnection();
+
+    // Carregar dados
     await loadData();
     setupEventListeners();
     renderApp();
 });
 
-function generateParticles() {
-    const field = document.getElementById("particle-field");
-    if (!field) return;
-    const fragment = document.createDocumentFragment();
-    const colors = ['rgba(212, 163, 115, 0.3)', 'rgba(135, 180, 160, 0.25)', 'rgba(196, 181, 212, 0.25)', 'rgba(255, 255, 255, 0.4)'];
-    for (let i = 0; i < 25; i++) {
-        const particle = document.createElement("div");
-        particle.className = "particle";
-        const size = 1 + Math.random() * 3;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.top = `${Math.random() * 100}%`;
-        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-        particle.style.animationDuration = `${15 + Math.random() * 20}s`;
-        particle.style.animationDelay = `${Math.random() * 15}s`;
-        particle.style.borderRadius = '50%';
-        fragment.appendChild(particle);
-    }
-    field.appendChild(fragment);
-}
-
-function generateStars() {
-    const field = document.getElementById("stars-field");
-    if (!field) return;
-    const fragment = document.createDocumentFragment();
-    for (let i = 0; i < 80; i++) {
-        const star = document.createElement("div");
-        star.className = "star";
-        const size = Math.random() > 0.8 ? 2 : 1;
-        star.style.width = `${size}px`;
-        star.style.height = `${size}px`;
-        star.style.left = `${Math.random() * 100}%`;
-        star.style.top = `${Math.random() * 100}%`;
-        star.style.setProperty('--duration', `${2 + Math.random() * 4}s`);
-        star.style.setProperty('--delay', `${Math.random() * 5}s`);
-        fragment.appendChild(star);
-    }
-    field.appendChild(fragment);
-}
-
 async function loadData() {
     let loaded = false;
-    const supabaseData = await loadFromSupabase();
-    if (supabaseData && supabaseData.length > 0) {
-        mediaItems = supabaseData.map(item => ({
-            id: item.id,
-            title: item.title,
-            type: item.type,
-            genre: item.genre,
-            cover: item.cover_url || item.cover,
-            status: item.status,
-            rating: item.rating,
-            review: item.review
-        }));
-        showToast('Dados carregados da nuvem ☁️', 'success');
-        loaded = true;
+
+    // Tentar Supabase primeiro (se online)
+    if (supabaseOnline) {
+        const supabaseData = await loadFromSupabase();
+        if (supabaseData && supabaseData.length >= 0) {
+            mediaItems = supabaseData.map(item => ({
+                id: item.id,
+                title: item.title,
+                type: item.type,
+                genre: item.genre,
+                cover: item.cover_url || item.cover,
+                status: item.status,
+                rating: item.rating,
+                review: item.review
+            }));
+            // Sincronizar com localStorage para backup
+            try {
+                localStorage.setItem("celestial-vault-media", JSON.stringify(mediaItems));
+            } catch(e) {}
+
+            if (supabaseData.length > 0) {
+                showToast('Dados carregados da nuvem ☁️', 'success');
+            } else {
+                showToast('Seu acervo está vazio. Adicione sua primeira obra! ✨', 'info');
+            }
+            loaded = true;
+        }
     }
+
+    // Fallback para localStorage
     if (!loaded) {
         try {
             const saved = localStorage.getItem("celestial-vault-media");
@@ -312,11 +306,11 @@ async function loadData() {
             console.warn("Erro ao carregar localStorage:", e);
         }
     }
+
     if (!loaded) {
         mediaItems = [];
         showToast('Seu acervo está vazio. Adicione sua primeira obra! ✨', 'info');
     }
-    saveData();
 }
 
 function saveData() {
@@ -440,7 +434,7 @@ function createMediaCard(item, index) {
     const statusCfg = STATUS_CONFIG[item.status];
     card.innerHTML = `
         <div class="cover-wrapper">
-            <img src="${escapeHtml(item.cover)}" alt="Capa de ${escapeHtml(item.title)}" loading="lazy" onerror="handleImgError(this, '${escapeHtml(item.title).replace(/'/g, "\\'")}')">
+            <img src="${escapeHtml(item.cover)}" alt="Capa de ${escapeHtml(item.title)}" loading="lazy" onerror="handleImgError(this, '${escapeHtml(item.title).replace(/'/g, "\'")}')">
             <div class="cover-mask"></div>
             <span class="media-type-badge">${TYPE_LABELS[item.type]}</span>
         </div>
@@ -479,7 +473,7 @@ function escapeHtml(text) {
 }
 
 // ============================================
-//  PICKER DE ESTRELAS — INTERATIVO
+//  PICKER DE ESTRELAS
 // ============================================
 function initStarsPicker(containerId, initialRating) {
     const container = document.getElementById(containerId);
@@ -500,25 +494,21 @@ function initStarsPicker(containerId, initialRating) {
             star.setAttribute("tabindex", "0");
             star.setAttribute("data-value", i);
 
-            // Hover: visualização temporária
             star.addEventListener("mouseenter", () => {
                 isHovering = true;
                 renderStars(i, true);
             });
 
-            // Click: define rating definitivo
             star.addEventListener("click", (e) => {
                 e.stopPropagation();
                 currentRating = i;
                 container.setAttribute("data-rating", currentRating);
                 isHovering = false;
                 renderStars(currentRating, false);
-                // Animação de confirmação
                 star.style.transform = 'scale(1.4)';
                 setTimeout(() => { star.style.transform = ''; }, 200);
             });
 
-            // Keyboard support
             star.addEventListener("keydown", (e) => {
                 if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
@@ -532,7 +522,6 @@ function initStarsPicker(containerId, initialRating) {
         }
     }
 
-    // Mouse leave: volta pro rating salvo
     container.addEventListener("mouseleave", () => {
         if (isHovering) {
             isHovering = false;
@@ -636,8 +625,12 @@ function setupEventListeners() {
             const status = document.getElementById("add-status").value;
             const rating = Number(document.getElementById("add-stars-picker").getAttribute("data-rating"));
             const review = document.getElementById("add-review").value.trim();
+
             const newItem = { title, genre, cover, type, status, rating, review };
+
+            // Tentar salvar no Supabase primeiro
             const savedItem = await saveToSupabase(newItem);
+
             if (savedItem) {
                 mediaItems.push({
                     id: savedItem.id,
@@ -650,9 +643,11 @@ function setupEventListeners() {
                     review: savedItem.review
                 });
             } else {
+                // Fallback: salvar localmente
                 const localId = Date.now() + Math.floor(Math.random() * 1000);
                 mediaItems.push({ id: localId, title, genre, cover, type, status, rating, review });
             }
+
             saveData();
             closeModals();
             renderApp();
@@ -667,6 +662,7 @@ function setupEventListeners() {
             if (!item) return;
             const newStatus = document.querySelector(".status-btn.active").getAttribute("data-status");
             const oldStatus = item.status;
+
             const updates = {
                 title: item.title,
                 genre: item.genre,
@@ -676,16 +672,21 @@ function setupEventListeners() {
                 rating: Number(document.getElementById("edit-stars-picker").getAttribute("data-rating")),
                 review: document.getElementById("edit-review").value.trim()
             };
+
+            // Tentar atualizar no Supabase
             const updated = await updateInSupabase(selectedItemId, updates);
+
             if (updated) {
                 item.status = newStatus;
                 item.rating = updates.rating;
                 item.review = updates.review;
             } else {
+                // Fallback: atualizar localmente
                 item.status = newStatus;
                 item.rating = updates.rating;
                 item.review = updates.review;
             }
+
             saveData();
             closeModals();
             renderApp();
