@@ -151,11 +151,6 @@ body {
     animation: cozyFloat 24s ease-in-out infinite 6s;
 }
 
-.aurora, .aurora-1, .aurora-2, .aurora-3,
-.particle-field, .stars-field {
-    display: none;
-}
-
 /* ============================================
    LOGIN PAGE — COZY AESTHETIC
    ============================================ */
